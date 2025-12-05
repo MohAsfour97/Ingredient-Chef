@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { ingredients, Ingredient } from "@/lib/mockData";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,6 +22,13 @@ export default function Home() {
   const [_, setLocation] = useLocation();
   const { user } = useAuth();
 
+  // Ensure user is redirected if not logged in
+  useEffect(() => {
+    if (!user) {
+      setLocation("/");
+    }
+  }, [user, setLocation]);
+
   const toggleIngredient = (id: string) => {
     setSelected(prev => 
       prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
@@ -44,6 +51,11 @@ export default function Home() {
   const handleLogout = () => {
     window.location.href = "/api/logout";
   };
+
+  if (!user) {
+    // Render nothing or a loading spinner while redirecting
+    return null;
+  }
 
   return (
     <div className="max-w-md mx-auto bg-background min-h-screen pb-32 relative overflow-hidden">
@@ -141,7 +153,7 @@ export default function Home() {
               </div>
             </div>
           ))}
-          
+
           {filteredIngredients.length === 0 && (
             <div className="text-center py-10 text-muted-foreground">
               <p>No ingredients found matching "{search}"</p>
@@ -172,7 +184,7 @@ export default function Home() {
                   })}
                 </div>
               </div>
-              
+
               <Button 
                 onClick={handleCook}
                 size="lg" 
