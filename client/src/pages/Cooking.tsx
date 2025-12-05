@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import chefAvatar from "@assets/generated_images/cute_3d_robot_chef_character.png";
+import { ingredients } from "@/lib/mockData";
+import { generateRecipes } from "@/lib/api";
 
 const cookingSteps = [
   "Analyzing flavors...",
@@ -14,6 +16,7 @@ const cookingSteps = [
 export default function Cooking() {
   const [_, setLocation] = useLocation();
   const [stepIndex, setStepIndex] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,19 +26,53 @@ export default function Cooking() {
       });
     }, 800);
 
-    const timeout = setTimeout(() => {
-      setLocation("/results");
-    }, 4000);
+    const generateRecipesAsync = async () => {
+      try {
+        const stored = localStorage.getItem('selectedIngredients');
+        if (!stored) {
+          setLocation("/");
+          return;
+        }
+
+        const selectedIds = JSON.parse(stored);
+        const selectedIngredients = ingredients.filter(i => selectedIds.includes(i.id));
+        const ingredientNames = selectedIngredients.map(i => i.name);
+
+        const recipes = await generateRecipes(ingredientNames);
+        
+        localStorage.setItem('generatedRecipes', JSON.stringify(recipes));
+        
+        setTimeout(() => {
+          setLocation("/results");
+        }, 1000);
+      } catch (err) {
+        console.error("Error generating recipes:", err);
+        setError(err instanceof Error ? err.message : "Failed to generate recipes");
+        
+        setTimeout(() => {
+          setLocation("/");
+        }, 3000);
+      }
+    };
+
+    generateRecipesAsync();
 
     return () => {
       clearInterval(interval);
-      clearTimeout(timeout);
     };
   }, [setLocation]);
 
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center max-w-md mx-auto p-6 text-center">
+        <div className="text-red-500 mb-4 text-lg font-medium">{error}</div>
+        <p className="text-muted-foreground">Redirecting you back...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center max-w-md mx-auto p-6 text-center relative overflow-hidden">
-       {/* Background Elements */}
        <motion.div 
         animate={{ 
           scale: [1, 1.2, 1],
@@ -54,7 +91,6 @@ export default function Cooking() {
            <img src={chefAvatar} alt="Chef" className="w-full h-full object-cover rounded-full" />
         </div>
         
-        {/* Floating Utensils Animation */}
         <motion.div 
           animate={{ rotate: 360 }}
           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -98,7 +134,7 @@ export default function Cooking() {
           className="h-full bg-primary"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
-          transition={{ duration: 4, ease: "linear" }}
+          transition={{ duration: 5, ease: "linear" }}
         />
       </div>
     </div>
