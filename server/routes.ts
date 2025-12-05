@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { generateRecipes } from "./openai";
+import { generateRecipes } from "./gemini";
 import { z } from "zod";
 
 const generateRecipesSchema = z.object({
