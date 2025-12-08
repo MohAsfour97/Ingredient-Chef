@@ -1,17 +1,49 @@
 
-import { User, Settings, LogOut, Mail, Calendar } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { User, Settings, LogOut, Mail, Calendar, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 export default function Profile() {
-  // Mock user data - replace with actual user data from your auth system
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  const [recipesCooked, setRecipesCooked] = useState(0);
+  const [favoriteCount, setFavoriteCount] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Load profile photo
+    const savedPhoto = localStorage.getItem('profilePhoto');
+    if (savedPhoto) {
+      setProfilePhoto(savedPhoto);
+    }
+
+    // Load cooking history count
+    const history = JSON.parse(localStorage.getItem('cookingHistory') || '[]');
+    setRecipesCooked(history.length);
+
+    // Load favorites count
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    setFavoriteCount(favorites.length);
+  }, []);
+
+  const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setProfilePhoto(result);
+        localStorage.setItem('profilePhoto', result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const user = {
-    name: "Chef User",
-    email: "chef@example.com",
+    name: localStorage.getItem('userName') || "Chef User",
+    email: localStorage.getItem('userEmail') || "chef@example.com",
     joinDate: "January 2024",
-    recipesCreated: 24,
-    favoriteRecipes: 12,
   };
 
   return (
@@ -22,8 +54,27 @@ export default function Profile() {
 
       <div className="px-6 -mt-16 relative z-10">
         <div className="flex flex-col items-center mb-6">
-          <div className="w-24 h-24 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-4xl font-bold border-4 border-background shadow-lg">
-            {user.name.charAt(0)}
+          <div className="relative group">
+            <div className="w-24 h-24 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-4xl font-bold border-4 border-background shadow-lg overflow-hidden">
+              {profilePhoto ? (
+                <img src={profilePhoto} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                user.name.charAt(0)
+              )}
+            </div>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg border-2 border-background hover:bg-primary/90 transition-colors"
+            >
+              <Camera className="w-4 h-4" />
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              className="hidden"
+            />
           </div>
           <h1 className="text-2xl font-bold mt-4">{user.name}</h1>
           <p className="text-muted-foreground flex items-center gap-1 mt-1">
@@ -38,11 +89,11 @@ export default function Profile() {
 
         <div className="grid grid-cols-2 gap-4 mb-6">
           <Card className="p-4 text-center">
-            <p className="text-3xl font-bold text-primary">{user.recipesCreated}</p>
-            <p className="text-sm text-muted-foreground mt-1">Recipes Created</p>
+            <p className="text-3xl font-bold text-primary">{recipesCooked}</p>
+            <p className="text-sm text-muted-foreground mt-1">Recipes Cooked</p>
           </Card>
           <Card className="p-4 text-center">
-            <p className="text-3xl font-bold text-primary">{user.favoriteRecipes}</p>
+            <p className="text-3xl font-bold text-primary">{favoriteCount}</p>
             <p className="text-sm text-muted-foreground mt-1">Favorites</p>
           </Card>
         </div>

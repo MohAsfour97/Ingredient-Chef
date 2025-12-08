@@ -101,6 +101,20 @@ export default function CookingMode() {
   };
 
   const handleFinish = () => {
+    if (recipe) {
+      // Save to cooking history
+      const history = JSON.parse(localStorage.getItem('cookingHistory') || '[]');
+      const cookedRecipe = {
+        id: Date.now().toString(),
+        name: recipe.name,
+        description: recipe.description,
+        time: recipe.time,
+        cookedDate: new Date().toLocaleDateString(),
+        timestamp: Date.now(),
+      };
+      history.push(cookedRecipe);
+      localStorage.setItem('cookingHistory', JSON.stringify(history));
+    }
     setLocation("/results");
   };
 

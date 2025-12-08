@@ -9,6 +9,7 @@ import Results from "@/pages/Results";
 import Recipe from "@/pages/Recipe";
 import CookingMode from "@/pages/CookingMode";
 import Favorites from "@/pages/Favorites";
+import History from "@/pages/History";
 import Profile from "@/pages/Profile";
 import NotFound from "@/pages/not-found";
 import Footer from "@/components/Footer";
@@ -55,6 +56,9 @@ function Router() {
       <Route path="/favorites">
         {() => <ProtectedRoute component={Favorites} />}
       </Route>
+      <Route path="/history">
+        {() => <ProtectedRoute component={History} />}
+      </Route>
       <Route path="/profile">
         {() => <ProtectedRoute component={Profile} />}
       </Route>
@@ -65,18 +69,22 @@ function Router() {
 
 function App() {
   const [location, setLocation] = useLocation();
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    const welcomeSeen = localStorage.getItem("welcomeSeen");
-    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
-    
-    if (!welcomeSeen) {
-      localStorage.setItem("welcomeSeen", "true");
-      setLocation("/welcome");
-    } else if (!isAuthenticated && location === "/") {
-      setLocation("/signin");
+    if (!initialized) {
+      const welcomeSeen = localStorage.getItem("welcomeSeen");
+      const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+      
+      if (!welcomeSeen) {
+        localStorage.setItem("welcomeSeen", "true");
+        setLocation("/welcome");
+      } else if (!isAuthenticated && location === "/") {
+        setLocation("/signin");
+      }
+      setInitialized(true);
     }
-  }, []);
+  }, [initialized, location, setLocation]);
 
   const showFooter = !["/welcome", "/signin", "/signup"].includes(location);
 

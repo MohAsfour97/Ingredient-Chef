@@ -1,6 +1,5 @@
-
 import { useLocation } from "wouter";
-import { Home, ChefHat, Heart, User } from "lucide-react";
+import { Home, Heart, User, History } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Footer() {
@@ -8,8 +7,8 @@ export default function Footer() {
 
   const navItems = [
     { path: "/", icon: Home, label: "Home" },
-    { path: "/results", icon: ChefHat, label: "Recipes" },
     { path: "/favorites", icon: Heart, label: "Favorites" },
+    { path: "/history", icon: History, label: "History" },
     { path: "/profile", icon: User, label: "Profile" },
   ];
 
@@ -20,7 +19,7 @@ export default function Footer() {
           {navItems.map((item) => {
             const isActive = location === item.path;
             const Icon = item.icon;
-            
+
             return (
               <li key={item.path}>
                 <button
