@@ -126,7 +126,7 @@ export default function Home() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-6 left-0 right-0 px-6 max-w-md mx-auto z-50"
+            className="fixed bottom-24 left-0 right-0 px-6 max-w-md mx-auto z-50"
           >
             <div className="bg-foreground text-background p-2 rounded-[20px] shadow-xl flex items-center justify-between pl-5 pr-2 gap-4">
               <div className="flex items-center gap-2 overflow-hidden">
