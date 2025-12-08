@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import Cooking from "@/pages/Cooking";
 import Results from "@/pages/Results";
 import Recipe from "@/pages/Recipe";
+import CookingMode from "@/pages/CookingMode";
 import Favorites from "@/pages/Favorites";
 import Profile from "@/pages/Profile";
 import NotFound from "@/pages/not-found";
@@ -47,6 +48,9 @@ function Router() {
       </Route>
       <Route path="/recipe/:id">
         {() => <ProtectedRoute component={Recipe} />}
+      </Route>
+      <Route path="/cooking-mode">
+        {() => <ProtectedRoute component={CookingMode} />}
       </Route>
       <Route path="/favorites">
         {() => <ProtectedRoute component={Favorites} />}

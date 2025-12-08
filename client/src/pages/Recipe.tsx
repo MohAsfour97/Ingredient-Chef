@@ -172,6 +172,7 @@ export default function Recipe() {
            <Button 
             className="w-full rounded-xl h-12 text-lg font-bold shadow-lg shadow-primary/20"
             data-testid="button-start-cooking"
+            onClick={() => setLocation("/cooking-mode")}
           >
             Start Cooking Mode
           </Button>
