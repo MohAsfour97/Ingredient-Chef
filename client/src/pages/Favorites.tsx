@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Heart, Clock, Flame, ChefHat, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,31 +18,22 @@ interface FavoriteRecipe {
 
 export default function Favorites() {
   const [, setLocation] = useLocation();
-  
-  // Mock favorites data - replace with actual data from your backend/storage
-  const [favorites, setFavorites] = useState<FavoriteRecipe[]>([
-    {
-      id: "1",
-      name: "Tomato Basil Pasta",
-      description: "Fresh pasta with tomatoes and basil",
-      time: "20 min",
-      calories: "450 kcal",
-      difficulty: "Easy",
-      savedDate: "2 days ago",
-    },
-    {
-      id: "2",
-      name: "Greek Salad",
-      description: "Fresh vegetables with feta cheese",
-      time: "10 min",
-      calories: "250 kcal",
-      difficulty: "Easy",
-      savedDate: "1 week ago",
-    },
-  ]);
+  const [favorites, setFavorites] = useState<FavoriteRecipe[]>([]);
+
+  useEffect(() => {
+    const loadFavorites = () => {
+      const stored = localStorage.getItem('favorites');
+      if (stored) {
+        setFavorites(JSON.parse(stored));
+      }
+    };
+    loadFavorites();
+  }, []);
 
   const removeFavorite = (id: string) => {
-    setFavorites(favorites.filter(recipe => recipe.id !== id));
+    const updated = favorites.filter(recipe => recipe.id !== id);
+    setFavorites(updated);
+    localStorage.setItem('favorites', JSON.stringify(updated));
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -95,13 +86,23 @@ export default function Favorites() {
             >
               <div className="flex gap-4">
                 <div
-                  className="w-20 h-20 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0"
-                  onClick={() => setLocation(`/recipe/${recipe.id}`)}
+                  className="w-20 h-20 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 cursor-pointer"
+                  onClick={() => {
+                    if ((recipe as any).fullRecipe) {
+                      localStorage.setItem('currentRecipe', JSON.stringify((recipe as any).fullRecipe));
+                      setLocation(`/recipe/${recipe.id}`);
+                    }
+                  }}
                 >
                   <span className="text-3xl">🍽️</span>
                 </div>
                 
-                <div className="flex-1 min-w-0" onClick={() => setLocation(`/recipe/${recipe.id}`)}>
+                <div className="flex-1 min-w-0 cursor-pointer" onClick={() => {
+                  if ((recipe as any).fullRecipe) {
+                    localStorage.setItem('currentRecipe', JSON.stringify((recipe as any).fullRecipe));
+                    setLocation(`/recipe/${recipe.id}`);
+                  }
+                }}>
                   <h3 className="font-semibold text-lg mb-1 line-clamp-1">
                     {recipe.name}
                   </h3>

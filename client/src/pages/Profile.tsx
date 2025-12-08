@@ -2,7 +2,6 @@
 import { User, Settings, LogOut, Mail, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 
 export default function Profile() {
@@ -23,12 +22,9 @@ export default function Profile() {
 
       <div className="px-6 -mt-16 relative z-10">
         <div className="flex flex-col items-center mb-6">
-          <Avatar className="w-24 h-24 border-4 border-background shadow-lg">
-            <AvatarImage src="" />
-            <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
-              {user.name.charAt(0)}
-            </AvatarFallback>
-          </Avatar>
+          <div className="w-24 h-24 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-4xl font-bold border-4 border-background shadow-lg">
+            {user.name.charAt(0)}
+          </div>
           <h1 className="text-2xl font-bold mt-4">{user.name}</h1>
           <p className="text-muted-foreground flex items-center gap-1 mt-1">
             <Mail className="w-4 h-4" />

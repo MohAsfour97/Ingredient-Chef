@@ -4,18 +4,63 @@ import { GeneratedRecipe } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, Flame, Heart, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Recipe() {
   const [match, params] = useRoute("/recipe/:id");
   const [_, setLocation] = useLocation();
   const [recipe, setRecipe] = useState<GeneratedRecipe | null>(null);
+  const [isFavorited, setIsFavorited] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const stored = localStorage.getItem('currentRecipe');
     if (stored) {
-      setRecipe(JSON.parse(stored));
+      const recipeData = JSON.parse(stored);
+      setRecipe(recipeData);
+      
+      // Check if favorited
+      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      setIsFavorited(favorites.some((fav: any) => fav.name === recipeData.name));
     }
   }, [params]);
+
+  const toggleFavorite = () => {
+    if (!recipe) return;
+    
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const existingIndex = favorites.findIndex((fav: any) => fav.name === recipe.name);
+    
+    if (existingIndex >= 0) {
+      // Remove from favorites
+      favorites.splice(existingIndex, 1);
+      setIsFavorited(false);
+      toast({
+        title: "Removed from favorites",
+        description: `${recipe.name} has been removed from your favorites.`,
+      });
+    } else {
+      // Add to favorites
+      const favoriteRecipe = {
+        id: Date.now().toString(),
+        name: recipe.name,
+        description: recipe.description,
+        time: recipe.time,
+        calories: recipe.calories,
+        difficulty: recipe.difficulty,
+        savedDate: "Just now",
+        fullRecipe: recipe,
+      };
+      favorites.push(favoriteRecipe);
+      setIsFavorited(true);
+      toast({
+        title: "Added to favorites",
+        description: `${recipe.name} has been saved to your favorites.`,
+      });
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  };
 
   if (!match || !recipe) {
     return (
@@ -48,8 +93,9 @@ export default function Recipe() {
               size="icon" 
               className="rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 border-none"
               data-testid="button-favorite"
+              onClick={toggleFavorite}
             >
-              <Heart className="w-5 h-5" />
+              <Heart className={`w-5 h-5 ${isFavorited ? 'fill-red-500 text-red-500' : ''}`} />
             </Button>
           </div>
         </div>

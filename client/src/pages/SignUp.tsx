@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
@@ -8,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ChefHat, Mail, Lock, User as UserIcon, User } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function SignUp() {
   const [_, setLocation] = useLocation();
@@ -15,6 +15,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { toast } = useToast();
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +27,14 @@ export default function SignUp() {
     localStorage.setItem("isAuthenticated", "true");
     localStorage.setItem("userEmail", email);
     localStorage.setItem("userName", name);
-    setLocation("/");
+    localStorage.setItem("isGuest", "false");
+
+    toast({
+      title: "Account created!",
+      description: "Welcome to Chef's Kiss.",
+    });
+
+    setTimeout(() => setLocation("/"), 100);
   };
 
   const handleGuestLogin = () => {

@@ -61,16 +61,18 @@ function Router() {
 
 function App() {
   const [location, setLocation] = useLocation();
-  const [hasSeenWelcome, setHasSeenWelcome] = useState(false);
 
   useEffect(() => {
     const welcomeSeen = localStorage.getItem("welcomeSeen");
-    if (!welcomeSeen && location === "/") {
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+    
+    if (!welcomeSeen) {
       localStorage.setItem("welcomeSeen", "true");
       setLocation("/welcome");
-      setHasSeenWelcome(true);
+    } else if (!isAuthenticated && location === "/") {
+      setLocation("/signin");
     }
-  }, [location, setLocation]);
+  }, []);
 
   const showFooter = !["/welcome", "/signin", "/signup"].includes(location);
 

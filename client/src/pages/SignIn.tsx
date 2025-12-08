@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
@@ -8,24 +7,50 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ChefHat, Mail, Lock, User } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function SignIn() {
   const [_, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { toast } = useToast();
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock authentication - in real app, validate credentials
+
+    if (!email || !password) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please fill in all fields",
+      });
+      return;
+    }
+
     localStorage.setItem("isAuthenticated", "true");
     localStorage.setItem("userEmail", email);
-    setLocation("/");
+    localStorage.setItem("userName", email.split("@")[0]);
+    localStorage.setItem("isGuest", "false");
+
+    toast({
+      title: "Welcome back!",
+      description: "You have successfully signed in.",
+    });
+
+    setTimeout(() => setLocation("/"), 100);
   };
 
-  const handleGuestLogin = () => {
+  const handleGuestSignIn = () => {
     localStorage.setItem("isAuthenticated", "true");
+    localStorage.setItem("userName", "Guest");
     localStorage.setItem("isGuest", "true");
-    setLocation("/");
+
+    toast({
+      title: "Welcome!",
+      description: "You are now using Chef's Kiss as a guest.",
+    });
+
+    setTimeout(() => setLocation("/"), 100);
   };
 
   return (
@@ -103,7 +128,7 @@ export default function SignIn() {
                 variant="outline"
                 className="w-full mt-4"
                 size="lg"
-                onClick={handleGuestLogin}
+                onClick={handleGuestSignIn}
               >
                 <User className="w-4 h-4 mr-2" />
                 Continue as Guest
