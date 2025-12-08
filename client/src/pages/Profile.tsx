@@ -66,7 +66,18 @@ export default function Profile() {
 
           <Separator className="my-4" />
 
-          <Button variant="outline" className="w-full justify-start text-destructive hover:text-destructive" size="lg">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start text-destructive hover:text-destructive" 
+            size="lg"
+            onClick={() => {
+              localStorage.removeItem("isAuthenticated");
+              localStorage.removeItem("userEmail");
+              localStorage.removeItem("userName");
+              localStorage.removeItem("isGuest");
+              window.location.href = "/signin";
+            }}
+          >
             <LogOut className="w-5 h-5 mr-3" />
             Log Out
           </Button>
