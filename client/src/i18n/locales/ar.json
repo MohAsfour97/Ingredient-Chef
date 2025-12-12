@@ -86,6 +86,12 @@
     "rice": "أرز",
     "beef": "لحم بقر"
   },
+  "categories": {
+  "Protein": "بروتين",
+  "Produce": "خضروات",
+  "Dairy": "منتجات ألبان",
+  "Pantry": "خزانة"
+  },
   "recipes": {
     "pancakes": {
       "name": "فطائر ناعمة كالسحاب",
