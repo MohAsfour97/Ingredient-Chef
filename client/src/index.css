@@ -39,7 +39,14 @@
   
   --radius: 1rem;
 }
-
+html[lang="ar"] {
+  direction: rtl;
+  text-align: right;
+}
+html[lang="en"] {
+  direction: ltr;
+  text-align: left;
+  }
 /* LIGHT MODE - Fresh & Appetizing */
 :root {
   /* Warm Off-White Background */
