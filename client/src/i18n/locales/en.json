@@ -1,1 +1,8 @@
-
+{
+  "appTitle": "Ingredient Chef",
+  "searchPlaceholder": "Enter ingredients...",
+  "generateRecipe": "Generate Recipe",
+  "loading": "Preparing your recipe...",
+  "noResults": "No recipes found.",
+  "language": "Language"
+}
