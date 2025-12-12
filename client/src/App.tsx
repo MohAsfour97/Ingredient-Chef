@@ -89,8 +89,8 @@ function App() {
   // Footer should not show on Welcome, SignIn, SignUp
   const showFooter = !["/welcome", "/signin", "/signup"].includes(location);
 
-  // LanguageSwitcher should show on SignIn and SignUp (and optionally others)
-  const showLanguageSwitcher = ["/signin", "/signup"].includes(location);
+  // LanguageSwitcher should show on all pages except Welcome
+  const showLanguageSwitcher = location !== "/welcome";
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground antialiased pb-20">
