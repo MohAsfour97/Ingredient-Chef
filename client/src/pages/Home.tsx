@@ -25,7 +25,7 @@ export default function Home() {
   };
 
   const filteredIngredients = ingredients.filter(i =>
-    i.name.toLowerCase().includes(search.toLowerCase())
+    t(i.nameKey).toLowerCase().includes(search.toLowerCase())
   );
 
   const categories = Array.from(
@@ -83,7 +83,7 @@ export default function Home() {
           {categories.map(category => (
             <div key={category}>
               <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">
-                {category}
+                {t(`categories.${category}`) /* Optional translation for category names */}
               </h3>
 
               <div className="grid grid-cols-3 gap-3">
@@ -112,7 +112,7 @@ export default function Home() {
                             isSelected ? "text-primary" : "text-muted-foreground"
                           )}
                         >
-                          {ingredient.name}
+                          {t(ingredient.nameKey)}
                         </span>
 
                         {isSelected && (
@@ -178,6 +178,9 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Optional Language Switcher */}
+      <LanguageSwitcher />
     </div>
   );
-}
+                                                 }
