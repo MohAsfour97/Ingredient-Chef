@@ -42,5 +42,26 @@
     "today": "Today",
     "yesterday": "Yesterday",
     "daysAgo": "{{count}} days ago"
+  },
+  "signin": {
+  "welcomeBack": "Welcome Back!",
+  "signInToContinue": "Sign in to continue cooking",
+  "signIn": "Sign In",
+  "enterCredentials": "Enter your credentials to access your account",
+  "email": "Email",
+  "emailPlaceholder": "chef@example.com",
+  "password": "Password",
+  "passwordPlaceholder": "••••••••",
+  "orContinueWith": "Or continue with",
+  "continueAsGuest": "Continue as Guest",
+  "noAccount": "Don't have an account?",
+  "signUp": "Sign Up",
+  "errorTitle": "Error",
+  "errorDescription": "Please fill in all fields",
+  "welcomeBackTitle": "Welcome back!",
+  "welcomeBackDescription": "You have successfully signed in.",
+  "welcomeTitle": "Welcome!",
+  "welcomeDescription": "You are now using Chef's Kiss as a guest.",
+  "guestName": "Guest"
   }
 }
