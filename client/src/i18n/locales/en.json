@@ -6,5 +6,16 @@
     "noIngredientsFound": "No ingredients found matching",
     "itemsSelected": "{{count}} items selected",
     "cookNow": "Cook Now"
+  },
+  "profile": {
+    "defaultName": "Chef User",
+    "profilePhotoAlt": "Profile photo",
+    "joined": "Joined",
+    "recipesCooked": "Recipes Cooked",
+    "favorites": "Favorites",
+    "settings": "Settings",
+    "editProfile": "Edit Profile",
+    "preferences": "Preferences",
+    "logOut": "Log Out"
   }
 }
