@@ -89,19 +89,43 @@
   "recipes": {
     "pancakes": {
       "name": "Cloud Fluffy Pancakes",
-      "description": "Light as air pancakes served with fresh berries and warm maple syrup."
+      "description": "Light as air pancakes served with fresh berries and warm maple syrup.",
+      "steps": [
+        "Whisk eggs and milk together until frothy.",
+        "Sift in flour and fold gently.",
+        "Cook on a hot griddle until golden brown.",
+        "Serve with syrup and berries."
+      ]
     },
     "pasta": {
       "name": "Rustic Tomato Basil Pasta",
-      "description": "Classic Italian comfort food with fresh vine-ripened tomatoes."
+      "description": "Classic Italian comfort food with fresh vine-ripened tomatoes.",
+      "steps": [
+        "Boil pasta in salted water.",
+        "Sauté garlic in olive oil until fragrant.",
+        "Add chopped tomatoes and simmer.",
+        "Toss pasta with sauce and finish with cheese."
+      ]
     },
     "salad": {
       "name": "Mediterranean Crisp Salad",
-      "description": "A refreshing mix of crisp greens, salty feta, and olives."
+      "description": "A refreshing mix of crisp greens, salty feta, and olives.",
+      "steps": [
+        "Chop all vegetables into bite-sized pieces.",
+        "Toss with olive oil and seasoning.",
+        "Crumble feta cheese on top.",
+        "Serve chilled."
+      ]
     },
     "stirfry": {
       "name": "Sizzling Veggie Stir Fry",
-      "description": "Quick, healthy, and packed with vibrant crunchy vegetables."
+      "description": "Quick, healthy, and packed with vibrant crunchy vegetables.",
+      "steps": [
+        "Cook rice according to package instructions.",
+        "Heat oil in a wok over high heat.",
+        "Stir fry vegetables until tender-crisp.",
+        "Serve vegetables over steaming rice."
+      ]
     }
   }
-    }
+}
