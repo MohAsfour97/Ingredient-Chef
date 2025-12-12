@@ -21,20 +21,20 @@ export default function SignUp() {
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
-      alert(t("signin.errorPasswordsDontMatch"));
+      alert(t("signup.passwordMismatch"));
       return;
     }
 
-    // Mock registration - in real app, create account
     localStorage.setItem("isAuthenticated", "true");
     localStorage.setItem("userEmail", email);
     localStorage.setItem("userName", name);
     localStorage.setItem("isGuest", "false");
 
     toast({
-      title: t("signin.accountCreatedTitle"),
-      description: t("signin.accountCreatedDescription"),
+      title: t("signup.toastTitle"),
+      description: t("signup.toastDescription"),
     });
 
     setTimeout(() => setLocation("/"), 100);
@@ -58,29 +58,33 @@ export default function SignUp() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4 shadow-lg">
             <ChefHat className="w-8 h-8 text-primary-foreground" />
           </div>
+
           <h1 className="text-3xl font-heading font-bold text-foreground">
-            {t("signin.joinTitle")}
+            {t("signup.title")}
           </h1>
+
           <p className="text-muted-foreground mt-2">
-            {t("signin.joinSubtitle")}
+            {t("signup.subtitle")}
           </p>
         </div>
 
         <Card className="shadow-xl border-border/50">
           <CardHeader>
-            <CardTitle>{t("signin.signUpTitle")}</CardTitle>
-            <CardDescription>{t("signin.signUpDescription")}</CardDescription>
+            <CardTitle>{t("signup.cardTitle")}</CardTitle>
+            <CardDescription>{t("signup.cardDescription")}</CardDescription>
           </CardHeader>
+
           <CardContent>
             <form onSubmit={handleSignUp} className="space-y-4">
+
               <div className="space-y-2">
-                <Label htmlFor="name">{t("signin.name")}</Label>
+                <Label htmlFor="name">{t("signup.name")}</Label>
                 <div className="relative">
                   <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="name"
                     type="text"
-                    placeholder={t("signin.namePlaceholder")}
+                    placeholder={t("signup.namePlaceholder")}
                     className="pl-10"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -90,13 +94,13 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">{t("signin.email")}</Label>
+                <Label htmlFor="email">{t("signup.email")}</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
-                    placeholder={t("signin.emailPlaceholder")}
+                    placeholder={t("signup.emailPlaceholder")}
                     className="pl-10"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -106,13 +110,13 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">{t("signin.password")}</Label>
+                <Label htmlFor="password">{t("signup.password")}</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="password"
                     type="password"
-                    placeholder={t("signin.passwordPlaceholder")}
+                    placeholder={t("signup.passwordPlaceholder")}
                     className="pl-10"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -122,13 +126,13 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">{t("signin.confirmPassword")}</Label>
+                <Label htmlFor="confirmPassword">{t("signup.confirmPassword")}</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="confirmPassword"
                     type="password"
-                    placeholder={t("signin.confirmPasswordPlaceholder")}
+                    placeholder={t("signup.confirmPasswordPlaceholder")}
                     className="pl-10"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -138,7 +142,7 @@ export default function SignUp() {
               </div>
 
               <Button type="submit" className="w-full" size="lg">
-                {t("signin.createAccount")}
+                {t("signup.createAccount")}
               </Button>
             </form>
 
@@ -149,7 +153,7 @@ export default function SignUp() {
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
                   <span className="bg-card px-2 text-muted-foreground">
-                    {t("signin.orContinueWith")}
+                    {t("signup.orContinue")}
                   </span>
                 </div>
               </div>
@@ -162,18 +166,19 @@ export default function SignUp() {
                 onClick={handleGuestLogin}
               >
                 <User className="w-4 h-4 mr-2" />
-                {t("signin.continueAsGuest")}
+                {t("signup.guest")}
               </Button>
             </div>
           </CardContent>
+
           <CardFooter className="flex justify-center">
             <p className="text-sm text-muted-foreground">
-              {t("signin.alreadyHaveAccount")}{" "}
+              {t("signup.alreadyHaveAccount")}{" "}
               <button
                 onClick={() => setLocation("/signin")}
                 className="text-primary font-medium hover:underline"
               >
-                {t("signin.signIn")}
+                {t("signup.signin")}
               </button>
             </p>
           </CardFooter>
