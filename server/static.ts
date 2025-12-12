@@ -19,4 +19,4 @@ export function serveStatic(app: Express) {
   app.get("*", (_req, res) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
-}
+                }
