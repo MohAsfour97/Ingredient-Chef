@@ -63,5 +63,11 @@
     "welcomeTitle": "مرحباً!",
     "welcomeDescription": "أنت الآن تستخدم Chef's Kiss كزائر.",
     "guestName": "زائر"
-  }
+  },
+  "footer": {
+  "home": "الرئيسية",
+  "favorites": "المفضلة",
+  "history": "التاريخ",
+  "profile": "الملف الشخصي"
+}
 }
