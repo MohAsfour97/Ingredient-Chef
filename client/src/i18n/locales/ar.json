@@ -64,6 +64,28 @@
     "welcomeDescription": "أنت الآن تستخدم Chef's Kiss كزائر.",
     "guestName": "زائر"
   },
+  "signup": {
+    "title": "انضم إلى Chef's Kiss",
+    "subtitle": "أنشئ حساباً وابدأ الطهي",
+    "cardTitle": "إنشاء حساب",
+    "cardDescription": "أنشئ حسابك للبدء",
+    "name": "الاسم",
+    "namePlaceholder": "اسمك",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "chef@example.com",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "confirmPasswordPlaceholder": "••••••••",
+    "createAccount": "إنشاء الحساب",
+    "orContinue": "أو المتابعة عبر",
+    "guest": "متابعة كضيف",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "signin": "تسجيل الدخول",
+    "toastTitle": "تم إنشاء الحساب!",
+    "toastDescription": "مرحباً بك في Chef's Kiss.",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين!"
+  },
   "footer": {
     "home": "الرئيسية",
     "favorites": "المفضلة",
