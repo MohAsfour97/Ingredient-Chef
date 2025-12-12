@@ -8,8 +8,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import { ChefHat, Mail, Lock, User as UserIcon, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 export default function SignUp() {
+  const { t } = useTranslation();
   const [_, setLocation] = useLocation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,9 +22,10 @@ export default function SignUp() {
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords don't match!");
+      alert(t("signin.errorPasswordsDontMatch"));
       return;
     }
+
     // Mock registration - in real app, create account
     localStorage.setItem("isAuthenticated", "true");
     localStorage.setItem("userEmail", email);
@@ -30,8 +33,8 @@ export default function SignUp() {
     localStorage.setItem("isGuest", "false");
 
     toast({
-      title: "Account created!",
-      description: "Welcome to Chef's Kiss.",
+      title: t("signin.accountCreatedTitle"),
+      description: t("signin.accountCreatedDescription"),
     });
 
     setTimeout(() => setLocation("/"), 100);
@@ -55,25 +58,29 @@ export default function SignUp() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4 shadow-lg">
             <ChefHat className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-heading font-bold text-foreground">Join Chef's Kiss</h1>
-          <p className="text-muted-foreground mt-2">Create an account to start cooking</p>
+          <h1 className="text-3xl font-heading font-bold text-foreground">
+            {t("signin.joinTitle")}
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            {t("signin.joinSubtitle")}
+          </p>
         </div>
 
         <Card className="shadow-xl border-border/50">
           <CardHeader>
-            <CardTitle>Sign Up</CardTitle>
-            <CardDescription>Create your account to get started</CardDescription>
+            <CardTitle>{t("signin.signUpTitle")}</CardTitle>
+            <CardDescription>{t("signin.signUpDescription")}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignUp} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">{t("signin.name")}</Label>
                 <div className="relative">
                   <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="name"
                     type="text"
-                    placeholder="Your name"
+                    placeholder={t("signin.namePlaceholder")}
                     className="pl-10"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -83,13 +90,13 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("signin.email")}</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
-                    placeholder="chef@example.com"
+                    placeholder={t("signin.emailPlaceholder")}
                     className="pl-10"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -99,13 +106,13 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("signin.password")}</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="password"
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={t("signin.passwordPlaceholder")}
                     className="pl-10"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -115,13 +122,13 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">{t("signin.confirmPassword")}</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="confirmPassword"
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={t("signin.confirmPasswordPlaceholder")}
                     className="pl-10"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -131,7 +138,7 @@ export default function SignUp() {
               </div>
 
               <Button type="submit" className="w-full" size="lg">
-                Create Account
+                {t("signin.createAccount")}
               </Button>
             </form>
 
@@ -141,7 +148,9 @@ export default function SignUp() {
                   <Separator />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                  <span className="bg-card px-2 text-muted-foreground">
+                    {t("signin.orContinueWith")}
+                  </span>
                 </div>
               </div>
 
@@ -153,18 +162,18 @@ export default function SignUp() {
                 onClick={handleGuestLogin}
               >
                 <User className="w-4 h-4 mr-2" />
-                Continue as Guest
+                {t("signin.continueAsGuest")}
               </Button>
             </div>
           </CardContent>
           <CardFooter className="flex justify-center">
             <p className="text-sm text-muted-foreground">
-              Already have an account?{" "}
+              {t("signin.alreadyHaveAccount")}{" "}
               <button
                 onClick={() => setLocation("/signin")}
                 className="text-primary font-medium hover:underline"
               >
-                Sign In
+                {t("signin.signIn")}
               </button>
             </p>
           </CardFooter>
@@ -172,4 +181,4 @@ export default function SignUp() {
       </motion.div>
     </div>
   );
-}
+    }
