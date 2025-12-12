@@ -1,41 +1,47 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Globe } from "lucide-react";
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
 
-  // Sync HTML lang & direction whenever language changes
+  // Sync lang + direction
   useEffect(() => {
     const html = document.documentElement;
     html.lang = i18n.language;
     html.dir = i18n.language === "ar" ? "rtl" : "ltr";
   }, [i18n.language]);
 
-  const languages = ["en", "ar"];
+  const toggleLanguage = () => {
+    const next = i18n.language === "en" ? "ar" : "en";
+    i18n.changeLanguage(next);
+  };
 
   return (
-    <div className="flex justify-end p-2">
-      <div className="relative w-32 h-12 bg-gray-200 rounded-full flex items-center shadow-inner cursor-pointer select-none">
-        {/* Sliding pill */}
-        <div
-          className={`absolute top-1 left-1 w-14 h-10 bg-blue-600 rounded-full shadow-lg transform transition-transform duration-400 ease-out ${
-            i18n.language === "ar" ? "translate-x-16" : ""
-          }`}
-        />
+    <div className="flex justify-end">
+      <button
+        onClick={toggleLanguage}
+        className="
+          flex items-center gap-2 px-4 py-2
+          rounded-full shadow-lg border border-white/20
+          backdrop-blur-md bg-white/20
+          text-foreground font-medium
+          hover:bg-white/30 transition-all duration-300
+        "
+      >
+        <Globe className="w-4 h-4" />
+        <span className="tracking-wide">
+          {i18n.language === "en" ? "English" : "العربية"}
+        </span>
 
-        {languages.map((lng) => (
-          <button
-            key={lng}
-            onClick={() => i18n.changeLanguage(lng)}
-            aria-label={`Switch to ${lng === "en" ? "English" : "Arabic"}`}
-            className={`flex-1 h-full text-sm font-semibold z-10 relative focus:outline-none transition-colors duration-200 ${
-              i18n.language === lng ? "text-white" : "text-gray-700 hover:text-gray-900"
-            }`}
-          >
-            {lng.toUpperCase()}
-          </button>
-        ))}
-      </div>
+        {/* Animated Dot */}
+        <span
+          className={`
+            w-2 h-2 rounded-full transition-all duration-300 
+            ${i18n.language === "en" ? "bg-blue-500" : "bg-green-500"}
+          `}
+        />
+      </button>
     </div>
   );
 };
