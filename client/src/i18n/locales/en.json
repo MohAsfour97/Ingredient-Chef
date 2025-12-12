@@ -86,6 +86,12 @@
     "rice": "Rice",
     "beef": "Beef"
   },
+  "categories": {
+  "Protein": "Protein",
+  "Produce": "Produce",
+  "Dairy": "Dairy",
+  "Pantry": "Pantry"
+  },
   "recipes": {
     "pancakes": {
       "name": "Cloud Fluffy Pancakes",
