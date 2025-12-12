@@ -6,11 +6,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Search, ChefHat, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";   // <-- ADDED
 
 export default function Home() {
+  const { t } = useTranslation();   // <-- ADDED
+
   const [selected, setSelected] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [_, setLocation] = useLocation();
@@ -25,15 +27,11 @@ export default function Home() {
     i.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Group by category for better UX
+  // Group by category
   const categories = Array.from(new Set(filteredIngredients.map(i => i.category)));
 
   const handleCook = () => {
     if (selected.length > 0) {
-      // Pass selected ingredients via query param or just local storage mock
-      // For simplicity, we'll just assume "global state" is passed via URL or we just navigate
-      // and let the Results page pick random things if we don't persist.
-      // Ideally we'd use a context, but for this mock:
       localStorage.setItem('selectedIngredients', JSON.stringify(selected));
       setLocation("/cooking");
     }
@@ -41,6 +39,7 @@ export default function Home() {
 
   return (
     <div className="max-w-md mx-auto bg-background min-h-screen pb-32 relative overflow-hidden">
+      
       {/* Decorative Background Blob */}
       <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10" />
 
@@ -55,8 +54,10 @@ export default function Home() {
           </div>
           <div>
             <h1 className="text-2xl font-heading text-foreground leading-tight">
-              Hi there! <br />
-              <span className="text-muted-foreground text-lg font-normal">What's in your kitchen?</span>
+              {t("home.greeting")} <br />
+              <span className="text-muted-foreground text-lg font-normal">
+                {t("home.subtitle")}
+              </span>
             </h1>
           </div>
         </div>
@@ -65,7 +66,7 @@ export default function Home() {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input 
-            placeholder="Search ingredients..." 
+            placeholder={t("home.searchPlaceholder")}
             className="pl-10 bg-white border-border/50 shadow-sm h-12 rounded-xl"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -78,7 +79,10 @@ export default function Home() {
         <div className="space-y-6 pb-20">
           {categories.map(category => (
             <div key={category}>
-              <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">{category}</h3>
+              <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">
+                {category}
+              </h3>
+
               <div className="grid grid-cols-3 gap-3">
                 {filteredIngredients.filter(i => i.category === category).map(ingredient => {
                   const isSelected = selected.includes(ingredient.id);
@@ -101,6 +105,7 @@ export default function Home() {
                       )}>
                         {ingredient.name}
                       </span>
+
                       {isSelected && (
                         <div className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full" />
                       )}
@@ -113,13 +118,13 @@ export default function Home() {
           
           {filteredIngredients.length === 0 && (
             <div className="text-center py-10 text-muted-foreground">
-              <p>No ingredients found matching "{search}"</p>
+              <p>{t("home.noIngredientsFound")} "{search}"</p>
             </div>
           )}
         </div>
       </ScrollArea>
 
-      {/* Bottom Floating Action Bar */}
+      {/* Bottom Bar */}
       <AnimatePresence>
         {selected.length > 0 && (
           <motion.div 
@@ -129,8 +134,11 @@ export default function Home() {
             className="fixed bottom-24 left-0 right-0 px-6 max-w-md mx-auto z-50"
           >
             <div className="bg-foreground text-background p-2 rounded-[20px] shadow-xl flex items-center justify-between pl-5 pr-2 gap-4">
+              
               <div className="flex items-center gap-2 overflow-hidden">
-                <span className="text-sm font-medium whitespace-nowrap">{selected.length} items selected</span>
+                <span className="text-sm font-medium whitespace-nowrap">
+                  {t("home.itemsSelected", { count: selected.length })}
+                </span>
                 <div className="flex -space-x-2 overflow-hidden">
                   {selected.slice(0, 3).map(id => {
                     const ing = ingredients.find(i => i.id === id);
@@ -148,8 +156,9 @@ export default function Home() {
                 size="lg" 
                 className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold px-6 shadow-lg shadow-primary/20"
               >
-                Cook Now <ChefHat className="ml-2 w-4 h-4" />
+                {t("home.cookNow")} <ChefHat className="ml-2 w-4 h-4" />
               </Button>
+
             </div>
           </motion.div>
         )}
