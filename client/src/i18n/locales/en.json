@@ -17,5 +17,19 @@
     "editProfile": "Edit Profile",
     "preferences": "Preferences",
     "logOut": "Log Out"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "recipe": "recipe saved",
+    "recipesSaved": "recipes saved",
+    "noFavorites": "No favorites yet",
+    "noFavoritesSubtitle": "Start saving recipes you love and they'll appear here",
+    "discoverRecipes": "Discover Recipes",
+    "difficulty": {
+      "Easy": "Easy",
+      "Medium": "Medium",
+      "Hard": "Hard"
+    },
+    "savedOn": "Saved on"
   }
 }
