@@ -64,6 +64,28 @@
     "welcomeDescription": "You are now using Chef's Kiss as a guest.",
     "guestName": "Guest"
   },
+  "signup": {
+    "title": "Join Chef's Kiss",
+    "subtitle": "Create an account to start cooking",
+    "cardTitle": "Sign Up",
+    "cardDescription": "Create your account to get started",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "chef@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "••••••••",
+    "createAccount": "Create Account",
+    "orContinue": "Or continue with",
+    "guest": "Continue as Guest",
+    "alreadyHaveAccount": "Already have an account?",
+    "signin": "Sign In",
+    "toastTitle": "Account created!",
+    "toastDescription": "Welcome to Chef's Kiss.",
+    "passwordMismatch": "Passwords don't match!"
+  },
   "footer": {
     "home": "Home",
     "favorites": "Favorites",
