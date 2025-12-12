@@ -1,1 +1,8 @@
-
+{
+  "appTitle": "شيف المكونات",
+  "searchPlaceholder": "أدخل المكونات...",
+  "generateRecipe": "إنشاء وصفة",
+  "loading": "جارٍ إعداد وصفتك...",
+  "noResults": "لم يتم العثور على وصفات.",
+  "language": "اللغة"
+}
