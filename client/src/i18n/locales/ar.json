@@ -1,10 +1,21 @@
 {
   "home": {
-    "greeting": "مرحباً!",
-    "subtitle": "ما الموجود في مطبخك؟",
+    "greeting": "مرحبًا!",
+    "subtitle": "ماذا يوجد في مطبخك؟",
     "searchPlaceholder": "ابحث عن المكونات...",
-    "noIngredientsFound": "لا توجد مكونات مطابقة",
-    "itemsSelected": "{{count}} عنصر محدد",
+    "noIngredientsFound": "لم يتم العثور على مكونات مطابقة لـ",
+    "itemsSelected": "{{count}} عناصر محددة",
     "cookNow": "اطبخ الآن"
+  },
+  "profile": {
+    "defaultName": "الشيف",
+    "profilePhotoAlt": "صورة الملف الشخصي",
+    "joined": "انضم في",
+    "recipesCooked": "الوصفات المطبوخة",
+    "favorites": "المفضلة",
+    "settings": "الإعدادات",
+    "editProfile": "تعديل الملف الشخصي",
+    "preferences": "التفضيلات",
+    "logOut": "تسجيل الخروج"
   }
 }
