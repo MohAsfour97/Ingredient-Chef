@@ -57,6 +57,7 @@
     "framer-motion": "^12.23.24",
     "html-parse-stringify": "^3.0.1",
     "i18next": "^23.16.8",
+    "i18next-browser-languagedetector": "^8.2.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.545.0",
     "memorystore": "^1.6.7",
