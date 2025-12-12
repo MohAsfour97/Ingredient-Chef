@@ -1,15 +1,15 @@
 {
   "home": {
-    "greeting": "Hi there!",
+    "greeting": "Hello!",
     "subtitle": "What's in your kitchen?",
     "searchPlaceholder": "Search ingredients...",
-    "noIngredientsFound": "No ingredients found matching",
+    "noIngredientsFound": "No matching ingredients found for",
     "itemsSelected": "{{count}} items selected",
     "cookNow": "Cook Now"
   },
   "profile": {
-    "defaultName": "Chef User",
-    "profilePhotoAlt": "Profile photo",
+    "defaultName": "Chef",
+    "profilePhotoAlt": "Profile Photo",
     "joined": "Joined",
     "recipesCooked": "Recipes Cooked",
     "favorites": "Favorites",
@@ -20,10 +20,10 @@
   },
   "favorites": {
     "title": "Favorites",
-    "recipe": "recipe saved",
-    "recipesSaved": "recipes saved",
+    "recipe": "Saved Recipe",
+    "recipesSaved": "Recipes Saved",
     "noFavorites": "No favorites yet",
-    "noFavoritesSubtitle": "Start saving recipes you love and they'll appear here",
+    "noFavoritesSubtitle": "Start saving the recipes you love and they will appear here",
     "discoverRecipes": "Discover Recipes",
     "difficulty": {
       "Easy": "Easy",
@@ -34,9 +34,9 @@
   },
   "history": {
     "title": "Cooking History",
-    "recipe": "recipe completed",
-    "recipesCompleted": "recipes completed",
-    "noHistory": "No cooking history yet",
+    "recipe": "Completed Recipe",
+    "recipesCompleted": "Recipes Completed",
+    "noHistory": "No recipes cooked yet",
     "noHistorySubtitle": "Complete cooking mode to see your recipes here",
     "startCooking": "Start Cooking",
     "today": "Today",
@@ -44,43 +44,64 @@
     "daysAgo": "{{count}} days ago"
   },
   "signin": {
-  "welcomeBack": "Welcome Back!",
-  "signInToContinue": "Sign in to continue cooking",
-  "signIn": "Sign In",
-  "enterCredentials": "Enter your credentials to access your account",
-  "email": "Email",
-  "emailPlaceholder": "chef@example.com",
-  "password": "Password",
-  "passwordPlaceholder": "••••••••",
-  "orContinueWith": "Or continue with",
-  "continueAsGuest": "Continue as Guest",
-  "noAccount": "Don't have an account?",
-  "signUp": "Sign Up",
-  "errorTitle": "Error",
-  "errorDescription": "Please fill in all fields",
-  "welcomeBackTitle": "Welcome back!",
-  "welcomeBackDescription": "You have successfully signed in.",
-  "welcomeTitle": "Welcome!",
-  "welcomeDescription": "You are now using Chef's Kiss as a guest.",
-  "guestName": "Guest"
+    "welcomeBack": "Welcome Back!",
+    "signInToContinue": "Sign in to continue cooking",
+    "signIn": "Sign In",
+    "enterCredentials": "Enter your credentials to access your account",
+    "email": "Email",
+    "emailPlaceholder": "chef@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "orContinueWith": "Or continue with",
+    "continueAsGuest": "Continue as Guest",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "errorTitle": "Error",
+    "errorDescription": "Please fill in all fields",
+    "welcomeBackTitle": "Welcome Back!",
+    "welcomeBackDescription": "You have successfully signed in.",
+    "welcomeTitle": "Hello!",
+    "welcomeDescription": "You are now using Chef's Kiss as a guest.",
+    "guestName": "Guest"
   },
   "footer": {
-  "home": "Home",
-  "favorites": "Favorites",
-  "history": "History",
-  "profile": "Profile"
+    "home": "Home",
+    "favorites": "Favorites",
+    "history": "History",
+    "profile": "Profile"
   },
   "ingredients": {
     "eggs": "Eggs",
     "flour": "Flour",
     "milk": "Milk",
     "tomato": "Tomato",
-    "cheese": "Cheese"
+    "cheese": "Cheese",
+    "pasta": "Pasta",
+    "lettuce": "Lettuce",
+    "chicken": "Chicken",
+    "oil": "Olive Oil",
+    "garlic": "Garlic",
+    "onion": "Onion",
+    "peppers": "Peppers",
+    "rice": "Rice",
+    "beef": "Beef"
   },
   "recipes": {
     "pancakes": {
       "name": "Cloud Fluffy Pancakes",
       "description": "Light as air pancakes served with fresh berries and warm maple syrup."
+    },
+    "pasta": {
+      "name": "Rustic Tomato Basil Pasta",
+      "description": "Classic Italian comfort food with fresh vine-ripened tomatoes."
+    },
+    "salad": {
+      "name": "Mediterranean Crisp Salad",
+      "description": "A refreshing mix of crisp greens, salty feta, and olives."
+    },
+    "stirfry": {
+      "name": "Sizzling Veggie Stir Fry",
+      "description": "Quick, healthy, and packed with vibrant crunchy vegetables."
     }
   }
-}
+    }
