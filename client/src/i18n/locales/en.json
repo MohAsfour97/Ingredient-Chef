@@ -1,8 +1,10 @@
 {
-  "appTitle": "Ingredient Chef",
-  "searchPlaceholder": "Enter ingredients...",
-  "generateRecipe": "Generate Recipe",
-  "loading": "Preparing your recipe...",
-  "noResults": "No recipes found.",
-  "language": "Language"
+  "home": {
+    "greeting": "Hi there!",
+    "subtitle": "What's in your kitchen?",
+    "searchPlaceholder": "Search ingredients...",
+    "noIngredientsFound": "No ingredients found matching",
+    "itemsSelected": "{{count}} items selected",
+    "cookNow": "Cook Now"
+  }
 }
