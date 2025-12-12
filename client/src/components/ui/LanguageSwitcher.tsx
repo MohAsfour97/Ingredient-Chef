@@ -4,46 +4,37 @@ import { useTranslation } from "react-i18next";
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
 
-  // Sync HTML lang & direction whenever i18n.language changes
+  // Sync HTML lang & direction whenever language changes
   useEffect(() => {
     const html = document.documentElement;
     html.lang = i18n.language;
     html.dir = i18n.language === "ar" ? "rtl" : "ltr";
   }, [i18n.language]);
 
-  const toggleLanguage = () => {
-    i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
-  };
+  const languages = ["en", "ar"];
 
   return (
     <div className="flex justify-end p-2">
-      <div className="relative w-28 h-10 bg-gray-200 rounded-full flex items-center cursor-pointer select-none shadow-inner">
-        {/* Sliding indicator */}
+      <div className="relative w-32 h-12 bg-gray-200 rounded-full flex items-center shadow-inner cursor-pointer select-none">
+        {/* Sliding pill */}
         <div
-          className={`absolute top-0 left-0 w-1/2 h-full bg-blue-600 rounded-full shadow-md transform transition-transform duration-300 ${
-            i18n.language === "ar" ? "translate-x-full" : ""
+          className={`absolute top-1 left-1 w-14 h-10 bg-blue-600 rounded-full shadow-lg transform transition-transform duration-400 ease-out ${
+            i18n.language === "ar" ? "translate-x-16" : ""
           }`}
         />
 
-        {/* EN button */}
-        <button
-          className={`w-1/2 h-full text-sm font-semibold z-10 ${
-            i18n.language === "en" ? "text-white" : "text-gray-700"
-          }`}
-          onClick={() => i18n.changeLanguage("en")}
-        >
-          EN
-        </button>
-
-        {/* AR button */}
-        <button
-          className={`w-1/2 h-full text-sm font-semibold z-10 ${
-            i18n.language === "ar" ? "text-white" : "text-gray-700"
-          }`}
-          onClick={() => i18n.changeLanguage("ar")}
-        >
-          AR
-        </button>
+        {languages.map((lng) => (
+          <button
+            key={lng}
+            onClick={() => i18n.changeLanguage(lng)}
+            aria-label={`Switch to ${lng === "en" ? "English" : "Arabic"}`}
+            className={`flex-1 h-full text-sm font-semibold z-10 relative focus:outline-none transition-colors duration-200 ${
+              i18n.language === lng ? "text-white" : "text-gray-700 hover:text-gray-900"
+            }`}
+          >
+            {lng.toUpperCase()}
+          </button>
+        ))}
       </div>
     </div>
   );
