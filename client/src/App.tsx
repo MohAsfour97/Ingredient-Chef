@@ -14,7 +14,7 @@ import Profile from "@/pages/Profile";
 import NotFound from "@/pages/not-found";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
-import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher"; // <-- added
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher"; // <-- added
 
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
   const [location, setLocation] = useLocation();
@@ -89,7 +89,7 @@ function App() {
   }, [initialized, location, setLocation]);
 
   const showFooter = !["/welcome", "/signin", "/signup"].includes(location);
-  const showLanguageSwitcher = !["/welcome"].includes(location);
+  const showLanguageSwitcher = !["/welcome", "/signin", "/signup"].includes(location);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground antialiased pb-20">
