@@ -31,5 +31,16 @@
       "Hard": "Hard"
     },
     "savedOn": "Saved on"
+  },
+  "history": {
+    "title": "Cooking History",
+    "recipe": "recipe completed",
+    "recipesCompleted": "recipes completed",
+    "noHistory": "No cooking history yet",
+    "noHistorySubtitle": "Complete cooking mode to see your recipes here",
+    "startCooking": "Start Cooking",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago"
   }
 }
