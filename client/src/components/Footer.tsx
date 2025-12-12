@@ -1,15 +1,17 @@
 import { useLocation } from "wouter";
 import { Home, Heart, User, History } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
   const [location, setLocation] = useLocation();
+  const { t } = useTranslation();
 
   const navItems = [
-    { path: "/", icon: Home, label: "Home" },
-    { path: "/favorites", icon: Heart, label: "Favorites" },
-    { path: "/history", icon: History, label: "History" },
-    { path: "/profile", icon: User, label: "Profile" },
+    { path: "/", icon: Home, label: t("footer.home") },
+    { path: "/favorites", icon: Heart, label: t("footer.favorites") },
+    { path: "/history", icon: History, label: t("footer.history") },
+    { path: "/profile", icon: User, label: t("footer.profile") },
   ];
 
   return (
@@ -41,4 +43,4 @@ export default function Footer() {
       </nav>
     </footer>
   );
-}
+                }
