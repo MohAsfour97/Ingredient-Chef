@@ -14,7 +14,7 @@ import Profile from "@/pages/Profile";
 import NotFound from "@/pages/not-found";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
-import LanguageSwitcher from "@/components/ui/LanguageSwitcher"; // <-- added
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher"; // <-- added
 
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
   const [location, setLocation] = useLocation();
