@@ -1,186 +1,108 @@
-import { useState } from "react";
-import { useLocation } from "wouter";
-import { ingredients, Ingredient } from "@/lib/mockData";
-import chefAvatar from "@assets/generated_images/cute_3d_robot_chef_character.png";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Search, ChefHat } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
-import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
+import pancakesImg from '@assets/generated_images/fluffy_pancakes_with_syrup.png';
+import pastaImg from '@assets/generated_images/tomato_basil_pasta_dish.png';
+import saladImg from '@assets/generated_images/fresh_greek_salad.png';
+import stirfryImg from '@assets/generated_images/vegetable_stir_fry.png';
 
-export default function Home() {
-  const { t } = useTranslation();
+export interface Ingredient {
+  id: string;
+  nameKey: string; // i18n key for ingredient name
+  emoji: string;
+  category: 'Protein' | 'Produce' | 'Dairy' | 'Pantry';
+  color: string;
+}
 
-  const [selected, setSelected] = useState<string[]>([]);
-  const [search, setSearch] = useState<string>("");
-  const [_, setLocation] = useLocation();
+export interface Recipe {
+  id: string;
+  nameKey: string; // i18n key for recipe name
+  descriptionKey: string; // i18n key for recipe description
+  image: string;
+  requiredIngredients: string[]; // IDs from ingredients
+  time: string;
+  calories: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  steps: string[]; // optional: can be translated if needed
+}
 
-  const toggleIngredient = (id: string) => {
-    setSelected(prev =>
-      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-    );
-  };
+export const ingredients: Ingredient[] = [
+  { id: 'eggs', nameKey: 'ingredients.eggs', emoji: '🥚', category: 'Protein', color: 'bg-yellow-100 text-yellow-700' },
+  { id: 'flour', nameKey: 'ingredients.flour', emoji: '🌾', category: 'Pantry', color: 'bg-stone-100 text-stone-700' },
+  { id: 'milk', nameKey: 'ingredients.milk', emoji: '🥛', category: 'Dairy', color: 'bg-blue-50 text-blue-700' },
+  { id: 'tomato', nameKey: 'ingredients.tomato', emoji: '🍅', category: 'Produce', color: 'bg-red-100 text-red-700' },
+  { id: 'cheese', nameKey: 'ingredients.cheese', emoji: '🧀', category: 'Dairy', color: 'bg-orange-100 text-orange-700' },
+  { id: 'pasta', nameKey: 'ingredients.pasta', emoji: '🍝', category: 'Pantry', color: 'bg-amber-100 text-amber-700' },
+  { id: 'lettuce', nameKey: 'ingredients.lettuce', emoji: '🥬', category: 'Produce', color: 'bg-green-100 text-green-700' },
+  { id: 'chicken', nameKey: 'ingredients.chicken', emoji: '🍗', category: 'Protein', color: 'bg-orange-50 text-orange-800' },
+  { id: 'oil', nameKey: 'ingredients.oil', emoji: '🫒', category: 'Pantry', color: 'bg-lime-100 text-lime-700' },
+  { id: 'garlic', nameKey: 'ingredients.garlic', emoji: '🧄', category: 'Produce', color: 'bg-purple-50 text-purple-700' },
+  { id: 'onion', nameKey: 'ingredients.onion', emoji: '🧅', category: 'Produce', color: 'bg-rose-50 text-rose-700' },
+  { id: 'peppers', nameKey: 'ingredients.peppers', emoji: '🫑', category: 'Produce', color: 'bg-green-50 text-green-700' },
+  { id: 'rice', nameKey: 'ingredients.rice', emoji: '🍚', category: 'Pantry', color: 'bg-stone-50 text-stone-600' },
+  { id: 'beef', nameKey: 'ingredients.beef', emoji: '🥩', category: 'Protein', color: 'bg-red-50 text-red-800' },
+];
 
-  const filteredIngredients = ingredients.filter(i =>
-    t(i.nameKey).toLowerCase().includes(search.toLowerCase())
-  );
-
-  const categories = Array.from(
-    new Set(filteredIngredients.map(i => i.category))
-  );
-
-  const handleCook = () => {
-    if (selected.length > 0) {
-      localStorage.setItem("selectedIngredients", JSON.stringify(selected));
-      setLocation("/cooking");
-    }
-  };
-
-  return (
-    <div className="max-w-md mx-auto bg-background min-h-screen pb-32 relative overflow-hidden">
-      
-      {/* Decorative Background Blob */}
-      <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10" />
-
-      {/* Header */}
-      <header className="pt-8 px-6 pb-4">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="relative">
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 overflow-hidden border-2 border-white shadow-sm">
-              <img src={chefAvatar} alt="Chef" className="w-full h-full object-cover" />
-            </div>
-            <div className="absolute -bottom-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white" />
-          </div>
-
-          <div>
-            <h1 className="text-2xl font-heading text-foreground leading-tight">
-              {t("home.greeting")} <br />
-              <span className="text-muted-foreground text-lg font-normal">
-                {t("home.subtitle")}
-              </span>
-            </h1>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input
-            placeholder={t("home.searchPlaceholder")}
-            className="pl-10 bg-white border-border/50 shadow-sm h-12 rounded-xl"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </header>
-
-      {/* Ingredients Grid */}
-      <ScrollArea className="h-[calc(100vh-250px)] px-6">
-        <div className="space-y-6 pb-20">
-          {categories.map(category => (
-            <div key={category}>
-              <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">
-                {t(`categories.${category}`) /* Optional translation for category names */}
-              </h3>
-
-              <div className="grid grid-cols-3 gap-3">
-                {filteredIngredients
-                  .filter(i => i.category === category)
-                  .map(ingredient => {
-                    const isSelected = selected.includes(ingredient.id);
-
-                    return (
-                      <motion.button
-                        key={ingredient.id}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => toggleIngredient(ingredient.id)}
-                        className={cn(
-                          "flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-200 aspect-square gap-2",
-                          isSelected
-                            ? "border-primary bg-primary/5 shadow-md ring-1 ring-primary"
-                            : "border-transparent bg-white shadow-sm hover:border-border"
-                        )}
-                      >
-                        <span className="text-3xl">{ingredient.emoji}</span>
-
-                        <span
-                          className={cn(
-                            "text-xs font-medium",
-                            isSelected ? "text-primary" : "text-muted-foreground"
-                          )}
-                        >
-                          {t(ingredient.nameKey)}
-                        </span>
-
-                        {isSelected && (
-                          <div className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full" />
-                        )}
-                      </motion.button>
-                    );
-                  })}
-              </div>
-            </div>
-          ))}
-
-          {filteredIngredients.length === 0 && (
-            <div className="text-center py-10 text-muted-foreground">
-              <p>
-                {t("home.noIngredientsFound")} "{search}"
-              </p>
-            </div>
-          )}
-        </div>
-      </ScrollArea>
-
-      {/* Bottom Floating Action Bar */}
-      <AnimatePresence>
-        {selected.length > 0 && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-24 left-0 right-0 px-6 max-w-md mx-auto z-50"
-          >
-            <div className="bg-foreground text-background p-2 rounded-[20px] shadow-xl flex items-center justify-between pl-5 pr-2 gap-4">
-
-              <div className="flex items-center gap-2 overflow-hidden">
-                <span className="text-sm font-medium whitespace-nowrap">
-                  {t("home.itemsSelected", { count: selected.length })}
-                </span>
-
-                <div className="flex -space-x-2 overflow-hidden">
-                  {selected.slice(0, 3).map(id => {
-                    const ing = ingredients.find(i => i.id === id);
-                    return ing ? (
-                      <span
-                        key={id}
-                        className="inline-flex items-center justify-center w-6 h-6 bg-white/10 rounded-full text-[10px] border border-white/10"
-                      >
-                        {ing.emoji}
-                      </span>
-                    ) : null;
-                  })}
-                </div>
-              </div>
-
-              <Button
-                onClick={handleCook}
-                size="lg"
-                className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 font-bold px-6 shadow-lg shadow-primary/20"
-              >
-                {t("home.cookNow")}{" "}
-                <ChefHat className="ml-2 w-4 h-4" />
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Optional Language Switcher */}
-      <LanguageSwitcher />
-    </div>
-  );
-        }
+export const recipes: Recipe[] = [
+  {
+    id: 'pancakes',
+    nameKey: 'recipes.pancakes.name',
+    descriptionKey: 'recipes.pancakes.description',
+    image: pancakesImg,
+    requiredIngredients: ['eggs', 'flour', 'milk'],
+    time: '15 min',
+    calories: '350 kcal',
+    difficulty: 'Easy',
+    steps: [
+      'Whisk eggs and milk together until frothy.',
+      'Sift in flour and fold gently.',
+      'Cook on a hot griddle until golden brown.',
+      'Serve with syrup and berries.'
+    ]
+  },
+  {
+    id: 'pasta',
+    nameKey: 'recipes.pasta.name',
+    descriptionKey: 'recipes.pasta.description',
+    image: pastaImg,
+    requiredIngredients: ['pasta', 'tomato', 'garlic', 'oil', 'cheese'],
+    time: '20 min',
+    calories: '420 kcal',
+    difficulty: 'Medium',
+    steps: [
+      'Boil pasta in salted water.',
+      'Sauté garlic in olive oil until fragrant.',
+      'Add chopped tomatoes and simmer.',
+      'Toss pasta with sauce and finish with cheese.'
+    ]
+  },
+  {
+    id: 'salad',
+    nameKey: 'recipes.salad.name',
+    descriptionKey: 'recipes.salad.description',
+    image: saladImg,
+    requiredIngredients: ['lettuce', 'tomato', 'cheese', 'oil', 'onion'],
+    time: '10 min',
+    calories: '210 kcal',
+    difficulty: 'Easy',
+    steps: [
+      'Chop all vegetables into bite-sized pieces.',
+      'Toss with olive oil and seasoning.',
+      'Crumble feta cheese on top.',
+      'Serve chilled.'
+    ]
+  },
+  {
+    id: 'stirfry',
+    nameKey: 'recipes.stirfry.name',
+    descriptionKey: 'recipes.stirfry.description',
+    image: stirfryImg,
+    requiredIngredients: ['peppers', 'onion', 'garlic', 'oil', 'rice'],
+    time: '25 min',
+    calories: '380 kcal',
+    difficulty: 'Medium',
+    steps: [
+      'Cook rice according to package instructions.',
+      'Heat oil in a wok over high heat.',
+      'Stir fry vegetables until tender-crisp.',
+      'Serve vegetables over steaming rice.'
+    ]
+  }
+];
