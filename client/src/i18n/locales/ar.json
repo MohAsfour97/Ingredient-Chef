@@ -31,5 +31,16 @@
       "Hard": "صعب"
     },
     "savedOn": "تم الحفظ في"
+  },
+  "history": {
+    "title": "تاريخ الطهي",
+    "recipe": "وصفة مكتملة",
+    "recipesCompleted": "وصفات مكتملة",
+    "noHistory": "لا توجد وصفات مطبوخة بعد",
+    "noHistorySubtitle": "أكمل وضع الطهي لتظهر وصفاتك هنا",
+    "startCooking": "ابدأ الطهي",
+    "today": "اليوم",
+    "yesterday": "أمس",
+    "daysAgo": "منذ {{count}} يوم"
   }
 }
