@@ -14,6 +14,7 @@ import Profile from "@/pages/Profile";
 import NotFound from "@/pages/not-found";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher"; // <-- added
 
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
   const [location, setLocation] = useLocation();
@@ -75,23 +76,38 @@ function App() {
     if (!initialized) {
       const welcomeSeen = localStorage.getItem("welcomeSeen");
       const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
-      
+
       if (!welcomeSeen) {
         localStorage.setItem("welcomeSeen", "true");
         setLocation("/welcome");
       } else if (!isAuthenticated && location === "/") {
         setLocation("/signin");
       }
+
       setInitialized(true);
     }
   }, [initialized, location, setLocation]);
 
   const showFooter = !["/welcome", "/signin", "/signup"].includes(location);
+  const showLanguageSwitcher = !["/welcome", "/signin", "/signup"].includes(location);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground antialiased pb-20">
+      
+      {/* Language Switcher */}
+      {showLanguageSwitcher && (
+        <div className="px-6 pt-4">
+          <LanguageSwitcher />
+        </div>
+      )}
+
+      {/* Main Router */}
       <Router />
+
+      {/* Footer */}
       {showFooter && <Footer />}
+
+      {/* Toaster for notifications */}
       <Toaster />
     </div>
   );
