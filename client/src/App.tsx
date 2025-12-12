@@ -89,7 +89,7 @@ function App() {
   }, [initialized, location, setLocation]);
 
   const showFooter = !["/welcome", "/signin", "/signup"].includes(location);
-  const showLanguageSwitcher = !["/welcome", "/signin", "/signup"].includes(location);
+  const showLanguageSwitcher = !["/welcome"].includes(location);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground antialiased pb-20">
