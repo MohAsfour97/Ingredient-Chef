@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Heart, Clock, Flame, ChefHat, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 
 interface FavoriteRecipe {
   id: string;
@@ -17,31 +17,31 @@ interface FavoriteRecipe {
 }
 
 export default function Favorites() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const [favorites, setFavorites] = useState<FavoriteRecipe[]>([]);
 
   useEffect(() => {
-    const loadFavorites = () => {
-      const stored = localStorage.getItem('favorites');
-      if (stored) {
-        setFavorites(JSON.parse(stored));
-      }
-    };
-    loadFavorites();
+    const stored = localStorage.getItem("favorites");
+    if (stored) setFavorites(JSON.parse(stored));
   }, []);
 
   const removeFavorite = (id: string) => {
-    const updated = favorites.filter(recipe => recipe.id !== id);
+    const updated = favorites.filter((recipe) => recipe.id !== id);
     setFavorites(updated);
-    localStorage.setItem('favorites', JSON.stringify(updated));
+    localStorage.setItem("favorites", JSON.stringify(updated));
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "Easy": return "bg-green-500/10 text-green-700 dark:text-green-400";
-      case "Medium": return "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400";
-      case "Hard": return "bg-red-500/10 text-red-700 dark:text-red-400";
-      default: return "bg-gray-500/10 text-gray-700 dark:text-gray-400";
+      case "Easy":
+        return "bg-green-500/10 text-green-700 dark:text-green-400";
+      case "Medium":
+        return "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400";
+      case "Hard":
+        return "bg-red-500/10 text-red-700 dark:text-red-400";
+      default:
+        return "bg-gray-500/10 text-gray-700 dark:text-gray-400";
     }
   };
 
@@ -54,9 +54,12 @@ export default function Favorites() {
               <Heart className="w-6 h-6 text-primary fill-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">Favorites</h1>
+              <h1 className="text-2xl font-bold">{t("favorites.title")}</h1>
               <p className="text-sm text-muted-foreground">
-                {favorites.length} saved {favorites.length === 1 ? 'recipe' : 'recipes'}
+                {favorites.length}{" "}
+                {favorites.length === 1
+                  ? t("favorites.recipe")
+                  : t("favorites.recipesSaved")}
               </p>
             </div>
           </div>
@@ -69,13 +72,13 @@ export default function Favorites() {
             <div className="p-4 bg-muted rounded-full mb-4">
               <Heart className="w-12 h-12 text-muted-foreground" />
             </div>
-            <h2 className="text-xl font-semibold mb-2">No favorites yet</h2>
+            <h2 className="text-xl font-semibold mb-2">{t("favorites.noFavorites")}</h2>
             <p className="text-muted-foreground mb-6 max-w-xs">
-              Start saving recipes you love and they'll appear here
+              {t("favorites.noFavoritesSubtitle")}
             </p>
             <Button onClick={() => setLocation("/")}>
               <ChefHat className="w-4 h-4 mr-2" />
-              Discover Recipes
+              {t("favorites.discoverRecipes")}
             </Button>
           </div>
         ) : (
@@ -89,27 +92,36 @@ export default function Favorites() {
                   className="w-20 h-20 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 cursor-pointer"
                   onClick={() => {
                     if ((recipe as any).fullRecipe) {
-                      localStorage.setItem('currentRecipe', JSON.stringify((recipe as any).fullRecipe));
+                      localStorage.setItem(
+                        "currentRecipe",
+                        JSON.stringify((recipe as any).fullRecipe)
+                      );
                       setLocation(`/recipe/${recipe.id}`);
                     }
                   }}
                 >
                   <span className="text-3xl">🍽️</span>
                 </div>
-                
-                <div className="flex-1 min-w-0 cursor-pointer" onClick={() => {
-                  if ((recipe as any).fullRecipe) {
-                    localStorage.setItem('currentRecipe', JSON.stringify((recipe as any).fullRecipe));
-                    setLocation(`/recipe/${recipe.id}`);
-                  }
-                }}>
+
+                <div
+                  className="flex-1 min-w-0 cursor-pointer"
+                  onClick={() => {
+                    if ((recipe as any).fullRecipe) {
+                      localStorage.setItem(
+                        "currentRecipe",
+                        JSON.stringify((recipe as any).fullRecipe)
+                      );
+                      setLocation(`/recipe/${recipe.id}`);
+                    }
+                  }}
+                >
                   <h3 className="font-semibold text-lg mb-1 line-clamp-1">
                     {recipe.name}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-2 line-clamp-1">
                     {recipe.description}
                   </p>
-                  
+
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                     <Badge variant="secondary" className="text-xs">
                       <Clock className="w-3 h-3 mr-1" />
@@ -120,12 +132,12 @@ export default function Favorites() {
                       {recipe.calories}
                     </Badge>
                     <Badge className={`text-xs ${getDifficultyColor(recipe.difficulty)}`}>
-                      {recipe.difficulty}
+                      {t(`favorites.difficulty.${recipe.difficulty}`)}
                     </Badge>
                   </div>
-                  
+
                   <p className="text-xs text-muted-foreground">
-                    Saved {recipe.savedDate}
+                    {t("favorites.savedOn")} {recipe.savedDate}
                   </p>
                 </div>
 
@@ -149,4 +161,4 @@ export default function Favorites() {
       </div>
     </div>
   );
-}
+      }
