@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
 
+  // Sync HTML lang & direction whenever i18n.language changes
+  useEffect(() => {
+    const html = document.documentElement;
+    html.lang = i18n.language;
+    html.dir = i18n.language === "ar" ? "rtl" : "ltr";
+  }, [i18n.language]);
+
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
-    document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
   };
 
   return (
