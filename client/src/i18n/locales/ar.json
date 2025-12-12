@@ -42,5 +42,26 @@
     "today": "اليوم",
     "yesterday": "أمس",
     "daysAgo": "منذ {{count}} يوم"
+  },
+  "signin": {
+    "welcomeBack": "مرحباً بعودتك!",
+    "signInToContinue": "قم بتسجيل الدخول للمتابعة في الطهي",
+    "signIn": "تسجيل الدخول",
+    "enterCredentials": "أدخل بيانات اعتمادك للوصول إلى حسابك",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "chef@example.com",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "••••••••",
+    "orContinueWith": "أو تابع باستخدام",
+    "continueAsGuest": "المتابعة كزائر",
+    "noAccount": "لا تمتلك حساب؟",
+    "signUp": "إنشاء حساب",
+    "errorTitle": "خطأ",
+    "errorDescription": "يرجى ملء جميع الحقول",
+    "welcomeBackTitle": "مرحباً بعودتك!",
+    "welcomeBackDescription": "لقد تم تسجيل دخولك بنجاح.",
+    "welcomeTitle": "مرحباً!",
+    "welcomeDescription": "أنت الآن تستخدم Chef's Kiss كزائر.",
+    "guestName": "زائر"
   }
 }
