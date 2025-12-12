@@ -1,8 +1,10 @@
 {
-  "appTitle": "شيف المكونات",
-  "searchPlaceholder": "أدخل المكونات...",
-  "generateRecipe": "إنشاء وصفة",
-  "loading": "جارٍ إعداد وصفتك...",
-  "noResults": "لم يتم العثور على وصفات.",
-  "language": "اللغة"
+  "home": {
+    "greeting": "مرحباً!",
+    "subtitle": "ما الموجود في مطبخك؟",
+    "searchPlaceholder": "ابحث عن المكونات...",
+    "noIngredientsFound": "لا توجد مكونات مطابقة",
+    "itemsSelected": "{{count}} عنصر محدد",
+    "cookNow": "اطبخ الآن"
+  }
 }
