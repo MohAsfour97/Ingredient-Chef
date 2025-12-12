@@ -8,12 +8,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import { ChefHat, Mail, Lock, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 export default function SignIn() {
   const [_, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,8 +23,8 @@ export default function SignIn() {
     if (!email || !password) {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Please fill in all fields",
+        title: t("signin.errorTitle"),
+        description: t("signin.errorDescription"),
       });
       return;
     }
@@ -33,8 +35,8 @@ export default function SignIn() {
     localStorage.setItem("isGuest", "false");
 
     toast({
-      title: "Welcome back!",
-      description: "You have successfully signed in.",
+      title: t("signin.welcomeBackTitle"),
+      description: t("signin.welcomeBackDescription"),
     });
 
     setTimeout(() => setLocation("/"), 100);
@@ -42,12 +44,12 @@ export default function SignIn() {
 
   const handleGuestSignIn = () => {
     localStorage.setItem("isAuthenticated", "true");
-    localStorage.setItem("userName", "Guest");
+    localStorage.setItem("userName", t("signin.guestName"));
     localStorage.setItem("isGuest", "true");
 
     toast({
-      title: "Welcome!",
-      description: "You are now using Chef's Kiss as a guest.",
+      title: t("signin.welcomeTitle"),
+      description: t("signin.welcomeDescription"),
     });
 
     setTimeout(() => setLocation("/"), 100);
@@ -65,25 +67,25 @@ export default function SignIn() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4 shadow-lg">
             <ChefHat className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-heading font-bold text-foreground">Welcome Back!</h1>
-          <p className="text-muted-foreground mt-2">Sign in to continue cooking</p>
+          <h1 className="text-3xl font-heading font-bold text-foreground">{t("signin.welcomeBack")}</h1>
+          <p className="text-muted-foreground mt-2">{t("signin.signInToContinue")}</p>
         </div>
 
         <Card className="shadow-xl border-border/50">
           <CardHeader>
-            <CardTitle>Sign In</CardTitle>
-            <CardDescription>Enter your credentials to access your account</CardDescription>
+            <CardTitle>{t("signin.signIn")}</CardTitle>
+            <CardDescription>{t("signin.enterCredentials")}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("signin.email")}</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
-                    placeholder="chef@example.com"
+                    placeholder={t("signin.emailPlaceholder")}
                     className="pl-10"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -93,13 +95,13 @@ export default function SignIn() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("signin.password")}</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     id="password"
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={t("signin.passwordPlaceholder")}
                     className="pl-10"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -109,7 +111,7 @@ export default function SignIn() {
               </div>
 
               <Button type="submit" className="w-full" size="lg">
-                Sign In
+                {t("signin.signIn")}
               </Button>
             </form>
 
@@ -119,7 +121,7 @@ export default function SignIn() {
                   <Separator />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                  <span className="bg-card px-2 text-muted-foreground">{t("signin.orContinueWith")}</span>
                 </div>
               </div>
 
@@ -131,18 +133,18 @@ export default function SignIn() {
                 onClick={handleGuestSignIn}
               >
                 <User className="w-4 h-4 mr-2" />
-                Continue as Guest
+                {t("signin.continueAsGuest")}
               </Button>
             </div>
           </CardContent>
           <CardFooter className="flex justify-center">
             <p className="text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              {t("signin.noAccount")}{" "}
               <button
                 onClick={() => setLocation("/signup")}
                 className="text-primary font-medium hover:underline"
               >
-                Sign Up
+                {t("signin.signUp")}
               </button>
             </p>
           </CardFooter>
@@ -150,4 +152,4 @@ export default function SignIn() {
       </motion.div>
     </div>
   );
-}
+                         }
