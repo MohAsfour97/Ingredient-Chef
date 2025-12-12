@@ -17,5 +17,19 @@
     "editProfile": "تعديل الملف الشخصي",
     "preferences": "التفضيلات",
     "logOut": "تسجيل الخروج"
+  },
+  "favorites": {
+    "title": "المفضلة",
+    "recipe": "وصفة محفوظة",
+    "recipesSaved": "وصفات محفوظة",
+    "noFavorites": "لا توجد مفضلات بعد",
+    "noFavoritesSubtitle": "ابدأ بحفظ الوصفات التي تحبها وستظهر هنا",
+    "discoverRecipes": "اكتشف الوصفات",
+    "difficulty": {
+      "Easy": "سهل",
+      "Medium": "متوسط",
+      "Hard": "صعب"
+    },
+    "savedOn": "تم الحفظ في"
   }
 }
