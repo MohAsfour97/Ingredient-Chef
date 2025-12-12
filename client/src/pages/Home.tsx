@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Search, ChefHat } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 
