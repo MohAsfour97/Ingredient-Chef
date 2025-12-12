@@ -16,50 +16,37 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <button
-        onClick={() => changeLanguage("en")}
-        style={{
-          ...styles.button,
-          ...(i18n.language === "en" ? styles.activeButton : {}),
-        }}
-      >
-        EN
-      </button>
+    <div className="flex items-center justify-end gap-2 p-2">
+      <div className="relative bg-gray-200 dark:bg-gray-700 rounded-full w-36 h-10 flex items-center px-1">
+        {/* Toggle highlight */}
+        <div
+          className={`absolute top-1 left-1 w-1/2 h-8 bg-primary rounded-full shadow-md transform transition-transform duration-300 ${
+            i18n.language === "ar" ? "translate-x-full" : "translate-x-0"
+          }`}
+        ></div>
 
-      <button
-        onClick={() => changeLanguage("ar")}
-        style={{
-          ...styles.button,
-          ...(i18n.language === "ar" ? styles.activeButton : {}),
-        }}
-      >
-        AR
-      </button>
+        {/* EN button */}
+        <button
+          onClick={() => changeLanguage("en")}
+          className={`w-1/2 h-10 rounded-full text-sm font-medium transition-colors duration-300 ${
+            i18n.language === "en" ? "text-white" : "text-gray-700 dark:text-gray-200"
+          }`}
+        >
+          EN
+        </button>
+
+        {/* AR button */}
+        <button
+          onClick={() => changeLanguage("ar")}
+          className={`w-1/2 h-10 rounded-full text-sm font-medium transition-colors duration-300 ${
+            i18n.language === "ar" ? "text-white" : "text-gray-700 dark:text-gray-200"
+          }`}
+        >
+          AR
+        </button>
+      </div>
     </div>
   );
 };
 
 export default LanguageSwitcher;
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: "flex",
-    gap: "10px",
-    justifyContent: "flex-end",
-    marginBottom: "20px",
-  },
-  button: {
-    padding: "6px 14px",
-    borderRadius: "8px",
-    background: "#f0f0f0",
-    border: "1px solid #ccc",
-    cursor: "pointer",
-    fontWeight: 500,
-  },
-  activeButton: {
-    background: "#4A90E2",
-    color: "white",
-    borderColor: "#4A90E2",
-  },
-};
