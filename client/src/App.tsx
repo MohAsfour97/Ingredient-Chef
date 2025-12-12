@@ -14,7 +14,7 @@ import Profile from "@/pages/Profile";
 import NotFound from "@/pages/not-found";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
-import LanguageSwitcher from "@/components/ui/LanguageSwitcher"; // <-- added
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
   const [location, setLocation] = useLocation();
@@ -26,9 +26,7 @@ function ProtectedRoute({ component: Component }: { component: React.ComponentTy
     }
   }, [isAuthenticated, setLocation]);
 
-  if (!isAuthenticated) {
-    return null;
-  }
+  if (!isAuthenticated) return null;
 
   return <Component />;
 }
@@ -88,12 +86,15 @@ function App() {
     }
   }, [initialized, location, setLocation]);
 
+  // Footer should not show on Welcome, SignIn, SignUp
   const showFooter = !["/welcome", "/signin", "/signup"].includes(location);
-  const showLanguageSwitcher = !["/welcome", "/signin", "/signup"].includes(location);
+
+  // LanguageSwitcher should show on SignIn and SignUp (and optionally others)
+  const showLanguageSwitcher = ["/signin", "/signup"].includes(location);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground antialiased pb-20">
-      
+
       {/* Language Switcher */}
       {showLanguageSwitcher && (
         <div className="px-6 pt-4">
@@ -107,7 +108,7 @@ function App() {
       {/* Footer */}
       {showFooter && <Footer />}
 
-      {/* Toaster for notifications */}
+      {/* Toaster */}
       <Toaster />
     </div>
   );
