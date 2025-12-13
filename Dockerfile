@@ -13,7 +13,7 @@ ENV NODE_ENV=production
 # =========================
 FROM base AS build
 
-# Native build dependencies (needed for bufferutil, utf-8-validate, etc.)
+# Native build tools (required for bufferutil, ws, etc.)
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
       build-essential \
@@ -22,19 +22,21 @@ RUN apt-get update -qq && \
       python-is-python3 && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy dependency manifests first (better layer caching)
+# Copy dependency manifests first (cache-friendly)
 COPY package.json package-lock.json ./
 
-# ✅ FIX: npm install instead of npm ci
+# ✅ IMPORTANT FIX:
+# npm ci FAILS because lockfile is out of sync
+# npm install is the correct solution here
 RUN npm install --include=dev --no-audit --no-fund
 
-# Copy application source
+# Copy rest of the app
 COPY . .
 
-# Build the application
+# Build the app (Vite / React / etc.)
 RUN npm run build
 
-# Remove dev dependencies after build
+# Remove dev dependencies for production
 RUN npm prune --omit=dev
 
 # =========================
@@ -45,7 +47,6 @@ FROM base
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Copy built app
 COPY --from=build /app /app
 
 EXPOSE 3000
